@@ -1,49 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
 
-  <head>
-    <meta charset="UTF-8">
-    <title>ASCII Art Gallery</title>
-    
+<meta charset="UTF-8">
+<title>ASCII Art Gallery</title>
 
-  </head>
-    
-  <body>
-  <pre> 
+<style>
+
+body{
+background:#0b0b0b;
+color:#33ff33;
+font-family:monospace;
+margin:0;
+}
+
+/* HEADER */
+
+header{
+text-align:center;
+padding:30px;
+font-size:32px;
+letter-spacing:3px;
+border-bottom:1px solid #33ff33;
+}
+
+/* SEARCH */
+
+.controls{
+text-align:center;
+padding:20px;
+}
+
+input{
+padding:10px;
+width:240px;
+background:black;
+color:#33ff33;
+border:1px solid #33ff33;
+}
+
+/* GALLERY GRID */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+padding:30px;
+}
+
+.art{
+background:#111;
+padding:20px;
+border:1px solid #33ff33;
+border-radius:8px;
+cursor:pointer;
+position:relative;
+transition:0.2s;
+}
+
+.art:hover{
+transform:scale(1.05);
+}
+
+/* COPY BUTTON */
+
+.copyBtn{
+position:absolute;
+top:8px;
+right:8px;
+background:black;
+border:1px solid #33ff33;
+color:#33ff33;
+font-size:11px;
+cursor:pointer;
+}
+
+/* ASCII */
+
+pre{
+margin:0;
+white-space:pre;
+}
+
+/* VIEWER */
+
+.viewer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:none;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+.viewer pre{
+font-size:22px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:40px;
+font-size:30px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+ASCII ART GALLERY
+</header>
+
+<div class="controls">
+<input id="search" placeholder="search tags like cat, face, cute">
+</div>
+
+<div class="gallery">
+
+<div class="art" data-tag="face">
+<button class="copyBtn">copy</button>
+<pre>
 _________
 | >   > |
 |   3   |
 |_______|
 </pre>
+</div>
 
+<div class="art" data-tag="cute face">
+<button class="copyBtn">copy</button>
 <pre>
 :3
 </pre>
+</div>
+
+<div class="art" data-tag="creature">
+<button class="copyBtn">copy</button>
 <pre>
 >o)
 (_>
 </pre>
+</div>
 
+<div class="art" data-tag="bunny animal">
+<button class="copyBtn">copy</button>
 <pre>
-  (\ /)
-  ( ..)
- c(")(")
+(\ /)
+( ..)
+c(")(")
 </pre>
+</div>
 
+<div class="art" data-tag="face cute">
+<button class="copyBtn">copy</button>
 <pre>
 (^~^)
 </pre>
+</div>
 
+<div class="art" data-tag="cat animal">
+<button class="copyBtn">copy</button>
 <pre>
 ^-----^
 (=o.o=)
 </pre>
+</div>
 
+<div class="art" data-tag="bunny animal">
+<button class="copyBtn">copy</button>
 <pre>
 (\___/)
 (=0.0=)
 </pre>
+</div>
 
+<div class="art" data-tag="creature animal">
+<button class="copyBtn">copy</button>
 <pre>
        _____
       /.   _)
@@ -51,23 +191,30 @@ _________
 .^^/     /
 (         )
 |_|-|_|-|_|
-
 </pre>
+</div>
 
+<div class="art" data-tag="cat">
+<button class="copyBtn">copy</button>
 <pre>
   /\__/\
   ( ' 3')
   | u  u|
   -------
 </pre>
+</div>
 
+<div class="art" data-tag="cat">
+<button class="copyBtn">copy</button>
 <pre>
   /)___/)
   (= o.o)
 </pre>
+</div>
 
+<div class="art" data-tag="character">
+<button class="copyBtn">copy</button>
 <pre>
- 
  ^^^^^^^    
  |     |
  | ._. |      
@@ -75,20 +222,19 @@ _________
  /|   |\
  -------
   |   |
- 
 </pre>
+</div>
 
-
+<div class="art" data-tag="cute characters">
+<button class="copyBtn">copy</button>
 <pre>
-
-
 (o'-')o Q('-'o)
-
 </pre>
+</div>
 
+<div class="art" data-tag="scene">
+<button class="copyBtn">copy</button>
 <pre>
-
-
    _________________________________________________________
  /|     -_-                                             _-  |\
 / |_-_- _                                         -_- _-   -| \   
@@ -106,11 +252,11 @@ _________
   |  |  / __  ()        -|        -  |  /  __--      -   |  |
   |  | /        __-- _   |   _- _ -  | /        __--_    |  |
   |__|/__________________|___________|/__________________|__|
- /                                             _ -        lc \
-/   -_- _ -             _- _---                       -_-  -_ \
-
 </pre>
+</div>
 
+<div class="art" data-tag="creatures">
+<button class="copyBtn">copy</button>
 <pre>
  _____
 /     \
@@ -120,10 +266,64 @@ vvvvvvv  /|__/|
   J|/^ ^ ^ \  |    /00  |    _//|
    |^ ^ ^ ^ |W|   |/^^\ |   /oo |
     \m___m__|_|    \m_m_|   \mm_|
-
-
 </pre>
-    
-  </body>
-  
+</div>
+
+</div>
+
+<div class="viewer" id="viewer">
+<div class="close" onclick="closeViewer()">X</div>
+<pre id="viewerArt"></pre>
+</div>
+
+<script>
+
+/* COPY */
+
+document.querySelectorAll(".copyBtn").forEach(btn=>{
+btn.onclick=function(e){
+e.stopPropagation()
+let art=this.parentElement.querySelector("pre").innerText
+navigator.clipboard.writeText(art)
+this.innerText="copied!"
+setTimeout(()=>this.innerText="copy",1000)
+}
+})
+
+/* VIEWER */
+
+document.querySelectorAll(".art").forEach(card=>{
+card.onclick=function(){
+let art=this.querySelector("pre").innerText
+document.getElementById("viewerArt").innerText=art
+document.getElementById("viewer").style.display="flex"
+}
+})
+
+function closeViewer(){
+document.getElementById("viewer").style.display="none"
+}
+
+/* SEARCH */
+
+document.getElementById("search").addEventListener("input",function(){
+
+let value=this.value.toLowerCase()
+
+document.querySelectorAll(".art").forEach(card=>{
+
+let tag=card.dataset.tag
+
+if(tag.includes(value) || value==="")
+card.style.display="block"
+else
+card.style.display="none"
+
+})
+
+})
+
+</script>
+
+</body>
 </html>
